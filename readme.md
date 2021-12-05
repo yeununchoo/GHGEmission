@@ -11,4 +11,4 @@ python 3.10.0
 pip 21.3.1
 ```
 
-Also see [requirement.txt](requirement.txt) for more
+Also see [requirement.txt](https://github.com/yeununchoo/GHGEmission/blob/main/requirements.txt) for more
