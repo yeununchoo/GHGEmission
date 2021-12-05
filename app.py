@@ -1,6 +1,8 @@
 import dash
 from dash import dcc # dash core components
 from dash import html
+from dash.dependencies import Input, Output, State
+
 import plotly.express as px
 
 import numpy as np
@@ -63,15 +65,15 @@ def static_radio_button():
                 className='offset-by-one nine columns', 
                 style={'paddingLeft': '5%'}),    
             dcc.RadioItems(
+                id = 'static_ghg',
                 options=[
                     {'label': 'Total Greenhouse Gases', 'value': 'GHG'},
                     {'label': 'Carbon Dioxide', 'value': 'CO2'},
                     {'label': 'Methane', 'value': 'CH4'},
-                    {'label': 'Nitrous Oxide', 'value': 'N20'},
+                    {'label': 'Nitrous Oxide', 'value': 'N2O'},
                     {'label': 'Hydrofluocarbons', 'value': 'HFC'},
                     {'label': 'Perfluorocarbons', 'value': 'PFC'},
                     {'label': 'Sulphur Hexaflouride', 'value': 'SF6'},
-                    {'label': 'Nitrogen Trifluoride', 'value': 'NF3'}
                 ],
                 value='GHG',
                 #labelStyle={'display': 'inline-block'}, 
@@ -150,11 +152,10 @@ def weekly_radio_button():
                     {'label': 'Total Greenhouse Gases', 'value': 'GHG'},
                     {'label': 'Carbon Dioxide', 'value': 'CO2'},
                     {'label': 'Methane', 'value': 'CH4'},
-                    {'label': 'Nitrous Oxide', 'value': 'N20'},
+                    {'label': 'Nitrous Oxide', 'value': 'N2O'},
                     {'label': 'Hydrofluocarbons', 'value': 'HFC'},
                     {'label': 'Perfluorocarbons', 'value': 'PFC'},
                     {'label': 'Sulphur Hexaflouride', 'value': 'SF6'},
-                    {'label': 'Nitrogen Trifluoride', 'value': 'NF3'}
                 ],
                 value='GHG',
                 #labelStyle={'display': 'inline-block'}, 
@@ -255,6 +256,12 @@ def references():
 
         ''', className='eleven columns', style={'paddingLeft': '5%'})], className="row")
 
+#####################################################################
+# 
+# app 
+#
+#####################################################################
+
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
@@ -265,7 +272,7 @@ app.layout = html.Div(children=[
         description(),
         static_section(),
         static_radio_button(),
-        static_figure(),
+        html.Div(id='static_fig'),
         weekly_section(),
         weekly_radio_button(),
         weekly_figure(),
@@ -275,6 +282,57 @@ app.layout = html.Div(children=[
     ], className='row', id='content')
 ])
 
+#####################################################################
+# 
+# responsive callbacks 
+#
+#####################################################################
+
+@app.callback(
+    Output(component_id='static_fig', component_property='children'),
+    Input(component_id='static_ghg', component_property='value'),
+)
+def static_figure_responsive(ghg):
+    """
+    Returns the static ghg vs gdp scatter plot
+    """
+    
+    ghg = str(ghg)
+    
+    df_static = pd.read_parquet("results/df_static.parquet")  
+    fig_scatter = px.scatter(df_static, 
+                             x = "GDP", 
+                             y = ghg, 
+                             color = "Country",
+                             hover_data = ["Year"], 
+                             log_x = True, 
+                             log_y = True,
+                             #title = "GH Gas Emission vs GDP",
+                             labels={'GDP':'GDP, Billion USD', 
+                                     f'{ghg}':f'{ghg}, Tonnes of CO2 Equivalent'}, 
+                             height = 700
+                            )
+                            
+    fig_scatter.update_layout(legend=dict(
+                              orientation="h",
+                              yanchor="bottom",
+                              y=1.02,
+                              xanchor="right",
+                              x=1))
+                              
+    fig_scatter.update_layout(font=dict(size = 20))
+                              
+    fig_scatter.update_layout(template='plotly_dark',
+                              plot_bgcolor='#2d3339',
+                              paper_bgcolor='#5b6571')
+    
+    fig_scatter.update_xaxes(gridcolor='#717e8e')
+    fig_scatter.update_yaxes(gridcolor='#717e8e')
+    
+    return html.Div(children=[dcc.Graph(figure = fig_scatter, 
+                                        className = 'offset-by-one nine columns', 
+                                        style={'paddingLeft': '5%'})], 
+                    className="row")
 
 if __name__ == '__main__':
     app.run_server(debug=True)
