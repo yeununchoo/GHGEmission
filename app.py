@@ -80,7 +80,9 @@ def static_radio_button():
                 className="offset-by-two seven columns"
             ), 
             dcc.Markdown('''
-                Emission vs GDP:  
+                Also, you can click on the country name on the graph to include/exclude it.
+                
+                Emission vs GDP  
                 ''', 
                 className='offset-by-one nine columns', 
                 style={'paddingLeft': '5%'})]
@@ -148,6 +150,7 @@ def weekly_radio_button():
                 className='offset-by-one nine columns', 
                 style={'paddingLeft': '5%'}),    
             dcc.RadioItems(
+                id = 'weekly_ghg',
                 options=[
                     {'label': 'Total Greenhouse Gases', 'value': 'GHG'},
                     {'label': 'Carbon Dioxide', 'value': 'CO2'},
@@ -162,7 +165,10 @@ def weekly_radio_button():
                 className="offset-by-two seven columns"
             ),
             dcc.Markdown('''
-                Greenhouse Emission Estimates:  
+            
+                Also, you can click on the country name on the graph to include/exclude it.
+                            
+                Greenhouse Emission Estimates
                 ''', 
                 className='offset-by-one nine columns', 
                 style={'paddingLeft': '5%'})]
@@ -249,10 +255,10 @@ def references():
     return html.Div(children=[dcc.Markdown('''
         ## References
         
-        - OECD Weekly GDP Tracker
-        - OECD Greenhouse Gas Emissions
-        - IMF GDP 
-        - Greenhouse Gas Equivalencies Calculator, US Environmental Protection Agency 
+        - [OECD Weekly GDP Tracker](https://www.oecd.org/economy/weekly-tracker-of-gdp-growth/)
+        - [OECD Greenhouse Gas Emissions](https://stats.oecd.org/Index.aspx?DataSetCode=AIR_GHG)
+        - [IMF GDP](https://www.imf.org/external/datamapper/NGDPD@WEO/OEMDC/ADVEC/WEOWORLD) 
+        - [Greenhouse Gas Equivalencies Calculator](https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator), US Environmental Protection Agency 
 
         ''', className='eleven columns', style={'paddingLeft': '5%'})], className="row")
 
@@ -275,7 +281,7 @@ app.layout = html.Div(children=[
         html.Div(id='static_fig'),
         weekly_section(),
         weekly_radio_button(),
-        weekly_figure(),
+        html.Div(id='weekly_fig'),
         inforgraphic(),
         conclusion(),
         references(),
@@ -330,6 +336,51 @@ def static_figure_responsive(ghg):
     fig_scatter.update_yaxes(gridcolor='#717e8e')
     
     return html.Div(children=[dcc.Graph(figure = fig_scatter, 
+                                        className = 'offset-by-one nine columns', 
+                                        style={'paddingLeft': '5%'})], 
+                    className="row")
+
+@app.callback(
+    Output(component_id='weekly_fig', component_property='children'),
+    Input(component_id='weekly_ghg', component_property='value'),
+)
+def weekly_figure_responsive(ghg):
+    """
+    Returns the static ghg vs gdp scatter plot
+    """
+    
+    ghg = str(ghg)
+    
+    df_weekly = pd.read_parquet("results/df_weekly.parquet")  
+    fig_bar = px.bar(df_weekly, 
+               x = "Week", 
+               y = f"{ghg}_weekly", 
+               color = "Country",
+               #title = "Weekly GH Gas Emission Prediction", 
+               labels={f'{ghg}_weekly':f'{ghg}, Tonnes of CO2 Equivalent'},
+               height = 700
+              )
+
+    fig_bar.update_layout(xaxis_type='category')
+    
+    fig_bar.update_layout(legend=dict(
+                            orientation="h",
+                            yanchor="bottom",
+                            y=1.02,
+                            xanchor="right",
+                            x=1)) 
+    
+    fig_bar.update_layout(font=dict(size = 20))
+    
+    fig_bar.update_layout(template='plotly_dark',
+                          plot_bgcolor='#2d3339',
+                          paper_bgcolor='#5b6571')
+    
+    fig_bar.update_xaxes(showgrid = False)
+    fig_bar.update_yaxes(gridcolor='#717e8e', 
+                         layer = 'above traces')
+    
+    return html.Div(children=[dcc.Graph(figure = fig_bar, 
                                         className = 'offset-by-one nine columns', 
                                         style={'paddingLeft': '5%'})], 
                     className="row")
