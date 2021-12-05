@@ -6,6 +6,8 @@ import plotly.express as px
 import numpy as np
 import pandas as pd
 
+#https://www.w3schools.com/colors/colors_picker.asp?color=23272c
+
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', '/assets/style.css']
 
 def page_header():
@@ -50,7 +52,37 @@ def static_section():
 
         ''', className='eleven columns', style={'paddingLeft': '5%'})], className="row")
 
-#https://www.w3schools.com/colors/colors_picker.asp?color=23272c
+def static_radio_button():
+    """
+    Returns radio buttons
+    """
+    return html.Div(children = [
+            dcc.Markdown('''
+                Choose the greenhouse gas here
+                ''', 
+                className='offset-by-one nine columns', 
+                style={'paddingLeft': '5%'}),    
+            dcc.RadioItems(
+                options=[
+                    {'label': 'Total Greenhouse Gases', 'value': 'GHG'},
+                    {'label': 'Carbon Dioxide', 'value': 'CO2'},
+                    {'label': 'Methane', 'value': 'CH4'},
+                    {'label': 'Nitrous Oxide', 'value': 'N20'},
+                    {'label': 'Hydrofluocarbons', 'value': 'HFC'},
+                    {'label': 'Perfluorocarbons', 'value': 'PFC'},
+                    {'label': 'Sulphur Hexaflouride', 'value': 'SF6'},
+                    {'label': 'Nitrogen Trifluoride', 'value': 'NF3'}
+                ],
+                value='GHG',
+                #labelStyle={'display': 'inline-block'}, 
+                className="offset-by-two seven columns"
+            ), 
+            dcc.Markdown('''
+                Emission vs GDP:  
+                ''', 
+                className='offset-by-one nine columns', 
+                style={'paddingLeft': '5%'})]
+            )
 
 def static_figure():
     """
@@ -102,6 +134,38 @@ def weekly_section():
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam feugiat ante vel nisl pellentesque, id ornare tortor sodales. Pellentesque commodo ligula eu elit elementum porttitor. Proin vitae sem tellus. Phasellus nec enim tellus. Aliquam eget erat fringilla nisl congue porttitor vel vitae felis. Vivamus pellentesque felis sit amet leo fringilla ullamcorper. Donec consequat et urna et malesuada. Proin malesuada magna quis ex feugiat lacinia.
 
         ''', className='eleven columns', style={'paddingLeft': '5%'})], className="row")
+        
+def weekly_radio_button():
+    """
+    Returns radio buttons
+    """
+    return html.Div(children = [
+            dcc.Markdown('''
+                Choose the greenhouse gas here
+                ''', 
+                className='offset-by-one nine columns', 
+                style={'paddingLeft': '5%'}),    
+            dcc.RadioItems(
+                options=[
+                    {'label': 'Total Greenhouse Gases', 'value': 'GHG'},
+                    {'label': 'Carbon Dioxide', 'value': 'CO2'},
+                    {'label': 'Methane', 'value': 'CH4'},
+                    {'label': 'Nitrous Oxide', 'value': 'N20'},
+                    {'label': 'Hydrofluocarbons', 'value': 'HFC'},
+                    {'label': 'Perfluorocarbons', 'value': 'PFC'},
+                    {'label': 'Sulphur Hexaflouride', 'value': 'SF6'},
+                    {'label': 'Nitrogen Trifluoride', 'value': 'NF3'}
+                ],
+                value='GHG',
+                #labelStyle={'display': 'inline-block'}, 
+                className="offset-by-two seven columns"
+            ),
+            dcc.Markdown('''
+                Greenhouse Emission Estimates:  
+                ''', 
+                className='offset-by-one nine columns', 
+                style={'paddingLeft': '5%'})]
+            )
 
 def weekly_figure():
     """
@@ -200,8 +264,10 @@ app.layout = html.Div(children=[
         html.Hr(),
         description(),
         static_section(),
+        static_radio_button(),
         static_figure(),
         weekly_section(),
+        weekly_radio_button(),
         weekly_figure(),
         inforgraphic(),
         conclusion(),
