@@ -6,6 +6,9 @@ Hello
 
 ## Environment
 
-```python 3.10.0
-pip 21.3.1```
+```
+python 3.10.0
+pip 21.3.1
+```
+
 Also see [requirement.txt](requirement.txt) for more
