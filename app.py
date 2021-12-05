@@ -1,6 +1,10 @@
 import dash
 from dash import dcc # dash core components
 from dash import html
+import plotly.express as px
+
+import numpy as np
+import pandas as pd
 
 
 COLORS = ['rgb(67,67,67)', 'rgb(115,115,115)', 'rgb(49,130,189)', 'rgb(189,189,189)']
@@ -14,16 +18,11 @@ def page_header():
     return html.Div(id='header', children=[
         html.Div([html.H3('Estimating Weekly Greenhouse Gas Emission')],
                  className="ten columns"),
-        html.A([html.Img(id = 'logo', 
+        html.A(html.Img(id = 'logo', 
                          src = app.get_asset_url('github.png'),
-                         style = {'height': '35px', 'paddingTop': '7%'}),
-                html.Span('Github Repo', style={'fontSize': '2rem', 
-                                                'height': '35px', 
-                                                'bottom': 0,
-                                                'paddingLeft': '4px', 
-                                                'color': '#a3a7b0',
-                                                'textDecoration': 'none'})],
-               className="two columns row",
+                         style = {'height': '35px', 'paddingTop': '10%', 'float':'right'}
+                         ),
+               className="two columns",
                href='https://github.com/yeununchoo/GHGEmission'),
     ], className="row")
 
@@ -45,6 +44,43 @@ def description():
 
         ''', className='eleven columns', style={'paddingLeft': '5%'})], className="row")
 
+def static_figure():
+    """
+    Returns the static ghg vs gdp scatter plot
+    """
+    
+    df = px.data.iris()  # iris is a pandas DataFrame
+    fig = px.scatter(df, x="sepal_width", y="sepal_length")
+    
+    return html.Div(
+            children=[
+                dcc.Markdown('''
+        ## Greenhouse Gas Emission vs GDP
+        
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam feugiat ante vel nisl pellentesque, id ornare tortor sodales. Pellentesque commodo ligula eu elit elementum porttitor. Proin vitae sem tellus. Phasellus nec enim tellus. Aliquam eget erat fringilla nisl congue porttitor vel vitae felis. Vivamus pellentesque felis sit amet leo fringilla ullamcorper. Donec consequat et urna et malesuada. Proin malesuada magna quis ex feugiat lacinia.
+        ''', 
+                        className='eleven columns', 
+                        style={'paddingLeft': '5%'}
+                    ),
+                dcc.Graph(figure = fig, 
+                          className = 'eleven columns')
+        ], className="row")
+
+def conclusion():
+    """
+    Returns conclusion in markdown
+    """
+    return html.Div(children=[dcc.Markdown('''
+        ## Future Works
+        
+        This website is currently under conustruction.
+
+        Click the [github link](https://github.com/yeununchoo/GHGEmission) in the header for more infomation. 
+        
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam feugiat ante vel nisl pellentesque, id ornare tortor sodales. Pellentesque commodo ligula eu elit elementum porttitor. Proin vitae sem tellus. Phasellus nec enim tellus. Aliquam eget erat fringilla nisl congue porttitor vel vitae felis. Vivamus pellentesque felis sit amet leo fringilla ullamcorper. Donec consequat et urna et malesuada. Proin malesuada magna quis ex feugiat lacinia.
+
+        ''', className='eleven columns', style={'paddingLeft': '5%'})], className="row")
+
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
@@ -53,6 +89,8 @@ app.layout = html.Div(children=[
         page_header(),
         html.Hr(),
         description(),
+        static_figure(),
+        conclusion(),
     ], className='row', id='content')
 ])
 
