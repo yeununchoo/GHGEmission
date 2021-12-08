@@ -41,7 +41,12 @@ def description():
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam feugiat ante vel nisl pellentesque, id ornare tortor sodales. Pellentesque commodo ligula eu elit elementum porttitor. Proin vitae sem tellus. Phasellus nec enim tellus. Aliquam eget erat fringilla nisl congue porttitor vel vitae felis. Vivamus pellentesque felis sit amet leo fringilla ullamcorper. Donec consequat et urna et malesuada. Proin malesuada magna quis ex feugiat lacinia.
 
         Maecenas quis imperdiet risus, non tempor dolor. Nulla diam risus, commodo tincidunt lacus id, molestie faucibus mauris. Phasellus arcu nisl, ornare ac mollis quis, tincidunt vitae augue. Sed suscipit, elit vitae posuere faucibus, neque erat congue erat, et consequat nunc magna et dolor. Vivamus ac lectus malesuada, volutpat quam sit amet, congue nisl. Quisque quam nulla, gravida at laoreet ac, rutrum eu elit. Vestibulum sapien enim, varius quis sagittis eget, posuere a est. Vestibulum quis tellus vel nunc varius aliquam lobortis finibus metus. Nam vel tincidunt lacus. Fusce posuere semper orci id dapibus. Aenean in euismod eros, ac cursus diam. Suspendisse ac eleifend est.
-        ''', className='eleven columns', style={'paddingLeft': '5%'})], className="row")
+        ''', 
+            className='eleven columns', 
+            style={'paddingLeft': '5%'}
+            )
+            ], 
+        className="row")
 
 def static_section():
     """
@@ -76,7 +81,7 @@ def static_radio_button():
                     {'label': 'Sulphur Hexaflouride', 'value': 'SF6'},
                 ],
                 value='GHG',
-                #labelStyle={'display': 'inline-block'}, 
+                labelStyle={'font-size': '2rem'}, 
                 className="offset-by-two seven columns"
             ), 
             dcc.Markdown('''
@@ -161,7 +166,7 @@ def weekly_radio_button():
                     {'label': 'Sulphur Hexaflouride', 'value': 'SF6'},
                 ],
                 value='GHG',
-                #labelStyle={'display': 'inline-block'}, 
+                labelStyle={'font-size': '2rem'}, 
                 className="offset-by-two seven columns"
             ),
             dcc.Markdown('''
