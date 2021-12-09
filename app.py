@@ -34,13 +34,14 @@ def description():
     """
     return html.Div(children=[dcc.Markdown('''
         # Estimating Weekly Greenhouse Gas Emission
-        This website is currently under conustruction.
-
-        Click the [github link](https://github.com/yeununchoo/GHGEmission) in the header for more infomation. 
         
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam feugiat ante vel nisl pellentesque, id ornare tortor sodales. Pellentesque commodo ligula eu elit elementum porttitor. Proin vitae sem tellus. Phasellus nec enim tellus. Aliquam eget erat fringilla nisl congue porttitor vel vitae felis. Vivamus pellentesque felis sit amet leo fringilla ullamcorper. Donec consequat et urna et malesuada. Proin malesuada magna quis ex feugiat lacinia.
+        Let’s try to estimate weekly greenhouse gas emissions. Have you thought of how many tonnes of CO2 are released into the atmosphere every week? 
 
-        Maecenas quis imperdiet risus, non tempor dolor. Nulla diam risus, commodo tincidunt lacus id, molestie faucibus mauris. Phasellus arcu nisl, ornare ac mollis quis, tincidunt vitae augue. Sed suscipit, elit vitae posuere faucibus, neque erat congue erat, et consequat nunc magna et dolor. Vivamus ac lectus malesuada, volutpat quam sit amet, congue nisl. Quisque quam nulla, gravida at laoreet ac, rutrum eu elit. Vestibulum sapien enim, varius quis sagittis eget, posuere a est. Vestibulum quis tellus vel nunc varius aliquam lobortis finibus metus. Nam vel tincidunt lacus. Fusce posuere semper orci id dapibus. Aenean in euismod eros, ac cursus diam. Suspendisse ac eleifend est.
+        If you have wondered about it, welcome to our website. We are three students from Brown University’s Data Science Masters program who created this websign using Python, Plotly Dash, and Heroku as part of a homework project for our DATA1050: “Data Engineering” class. 
+
+        Using the publicly available data on greenhouse gas emissions and GDP from the OECD and IMF across several recent years and countries, we have been able to build some interesting visualizations and regression models on how much greenhouse gases emissions each country in each year can expect based on the amount of GDP they generate. Our work focuses on the G7 countries in the past 5 years before the pandemic, from 2015 to 2019. Through the figures and information on the website, we hope to raise awareness about how industrial and personal behaviors can affect GHG, thereby empowering people and corporations to take more actions to combat climate change and protect the environment. 
+
+        We would like to raise awareness on GHG as a result of human and industrial activities, as demonstrated by the concept of the GDP. We hope more people can join us in having a moment to think about how our daily or industrial activities can add to increasing GHG emissions and affect our environment negatively. We hope the interactive plots and the infographic can help you with that. 
         ''', 
             className='eleven columns', 
             style={'paddingLeft': '5%'}
@@ -55,8 +56,9 @@ def static_section():
     return html.Div(children=[dcc.Markdown('''
         ## Greenhouse Gas Emission vs GDP
         
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam feugiat ante vel nisl pellentesque, id ornare tortor sodales. Pellentesque commodo ligula eu elit elementum porttitor. Proin vitae sem tellus. Phasellus nec enim tellus. Aliquam eget erat fringilla nisl congue porttitor vel vitae felis. Vivamus pellentesque felis sit amet leo fringilla ullamcorper. Donec consequat et urna et malesuada. Proin malesuada magna quis ex feugiat lacinia.
+        Here is our interactive plot for the relationship between GHG and GDP. The GHG data is from the OECD and the GDP data is from the IMF. Here, you can see the data for the G7 countries from the years 2015 to 2019. 
 
+        Please click on the radio buttons here to select different greenhouse gases of your interest, and as you make a selection, you can see a different graph generated for each country. This plot is updated whenever new data become available from the OECD. If you come back to our website every week, even if you select the same kind of greenhouse gases, you will get a new graph, because the data is continuously updated!
         ''', className='eleven columns', style={'paddingLeft': '5%'})], className="row")
 
 def static_radio_button():
@@ -140,8 +142,9 @@ def weekly_section():
     return html.Div(children=[dcc.Markdown('''
         ## Weekly Estimation
         
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam feugiat ante vel nisl pellentesque, id ornare tortor sodales. Pellentesque commodo ligula eu elit elementum porttitor. Proin vitae sem tellus. Phasellus nec enim tellus. Aliquam eget erat fringilla nisl congue porttitor vel vitae felis. Vivamus pellentesque felis sit amet leo fringilla ullamcorper. Donec consequat et urna et malesuada. Proin malesuada magna quis ex feugiat lacinia.
+        Here is our interactive plot for the analysis we have performed on the dynamic data from the OECD, combined with the previous GHG vs GDP analysis. In this analysis, we use the weekly GDP data to estimately weekly GHG emission. More precisely, after performing a log-log regression of GHG on GDP, we use the estimated coefficients from this model and create an interactive bar plot, with the independent variable being the GDP and the dependent variable being the weekly GHG emission, and the color of the dots being each of the G7 countries.
 
+        Please click on the radio buttons here to select different greenhouse gases of your interest, and as you make a selection, you can see a different graph generated for each country. This plot is updated whenever new data become available from the OECD. If you come back to our website every week, even if you select the same kind of greenhouse gases, you will get a new graph, because the data is continuously updated!
         ''', className='eleven columns', style={'paddingLeft': '5%'})], className="row")
         
 def weekly_radio_button():
@@ -226,8 +229,7 @@ def inforgraphic():
         [dcc.Markdown('''
             ## Better Understand Carbon Footprint
             
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam feugiat ante vel nisl pellentesque, id ornare tortor sodales. Pellentesque commodo ligula eu elit elementum porttitor. Proin vitae sem tellus. Phasellus nec enim tellus. Aliquam eget erat fringilla nisl congue porttitor vel vitae felis. Vivamus pellentesque felis sit amet leo fringilla ullamcorper. Donec consequat et urna et malesuada. Proin malesuada magna quis ex feugiat lacinia.
-
+            It is hard to make an intuitive sense of 10kg of CO2 is, right? Or even a tonne of CO2? We believe that it is important to give those intuitive meanings to the numbers. Hope this infographic could help you with that. 
             ''', 
                 className='eleven columns', 
                 style={'paddingLeft': '5%'}
@@ -243,14 +245,10 @@ def conclusion():
     Returns conclusion in markdown
     """
     return html.Div(children=[dcc.Markdown('''
-        ## Future Works
+        ## Fore More
+        For more information, please visit our Github [repository](https://github.com/yeununchoo/GHGEmission). 
         
-        This website is currently under conustruction.
-
-        Click the [github link](https://github.com/yeununchoo/GHGEmission) in the header for more infomation. 
-        
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam feugiat ante vel nisl pellentesque, id ornare tortor sodales. Pellentesque commodo ligula eu elit elementum porttitor. Proin vitae sem tellus. Phasellus nec enim tellus. Aliquam eget erat fringilla nisl congue porttitor vel vitae felis. Vivamus pellentesque felis sit amet leo fringilla ullamcorper. Donec consequat et urna et malesuada. Proin malesuada magna quis ex feugiat lacinia.
-
+        Thank you for visiting our website. Bye!
         ''', className='eleven columns', style={'paddingLeft': '5%'})], className="row")
 
 def references():
