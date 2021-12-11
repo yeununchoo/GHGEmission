@@ -37,11 +37,11 @@ def description():
         
         Let’s try to estimate weekly greenhouse gas emissions. Have you thought of how many tonnes of CO2 are released into the atmosphere every week? 
 
-        If you have wondered about it, welcome to our website. We are three students from Brown University’s Data Science Masters program who created this websign using Python, Plotly Dash, and Heroku as part of a homework project for our DATA1050: “Data Engineering” class. 
+        If you have wondered about it, welcome to our website. We are three students from Brown University’s Data Science Masters program. This website was created with Python, Plotly Dash, and Heroku as a part of a homework project for the course DATA1050: “Data Engineering”. This is an open-source project, and you are welcome to visit our Github [repository](https://github.com/yeununchoo/GHGEmission) for more details. 
 
-        Using the publicly available data on greenhouse gas emissions and GDP from the OECD and IMF across several recent years and countries, we have been able to build some interesting visualizations and regression models on how much greenhouse gases emissions each country in each year can expect based on the amount of GDP they generate. Our work focuses on the G7 countries in the past 5 years before the pandemic, from 2015 to 2019. Through the figures and information on the website, we hope to raise awareness about how industrial and personal behaviors can affect GHG, thereby empowering people and corporations to take more actions to combat climate change and protect the environment. 
+        Using the public data on greenhouse gas emissions and GDP from the OECD and IMF across several recent years and countries, we have been able to build some interesting visualizations and regression models on how much greenhouse gases emissions each country in each year can expect based on the amount of GDP they generate. Our work focuses on the G7 countries in the past 5 years before the pandemic, from 2015 to 2019. Through the figures and information on the website, we hope to raise awareness about how industrial and personal behaviors can affect GHG, thereby empowering people and corporations to take more actions to combat climate change and protect the environment. 
 
-        We would like to raise awareness on GHG as a result of human and industrial activities, as demonstrated by the concept of the GDP. We hope more people can join us in having a moment to think about how our daily or industrial activities can add to increasing GHG emissions and affect our environment negatively. We hope the interactive plots and the infographic can help you with that. 
+        We hope more people can join us in having a moment to think about how our daily or industrial activities can add to GHG emissions and affect our environment negatively. 
         ''', 
             className='eleven columns', 
             style={'paddingLeft': '5%'}
